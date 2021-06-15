@@ -82,12 +82,15 @@ for item in gis.content.search(query="* AND \  owner:" + gis.users.me.username, 
     if item.type in ["Web Map","Web Mapping Application","Web Experience","StoryMap","Dashboard","Application"]:
         StorageList = []
         item_data = item.get_data()
+        # Search the JSON for itemId, url, and baseURL keys and put the JSON 'path' and value in StorageList
         JSONsearch(StorageList,item_data,"itemId")
         JSONsearch(StorageList,item_data,"url")
         JSONsearch(StorageList,item_data,"baseURL")
         if StorageList:
+            # Backup JSON data into text files on your harddrive (to be extra careful) you can use AGO assistant to copy and paste them back into your AGO JSON if something goes wrong
             with open(BackupPath + "\\" + item.title + "_JSONBackup.txt", 'w') as outfile:
                 json.dump(item_data, outfile)
+            # Check the JSON values to see if there are any old/deprecated urls or itemids in your AGO items
             for row in StorageList:
                 if row[1] in OldUrl_Dict:
                     set_nested_item(item_data,row[0],OldUrl_Dict[row[1]][1])
