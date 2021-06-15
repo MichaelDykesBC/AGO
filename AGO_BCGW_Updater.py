@@ -14,6 +14,7 @@ from operator import getitem
 
 # Set path for backup JSON text files to wherever this script is sitting
 BackupPath = os.path.dirname(os.path.realpath(__file__))
+CSVFile = r"C:\Users\Mike\Desktop\AGO_BCGW_Lookup.csv"
 
 # Username and Password Variables from User Entry (getpass doesn't echo, and displays encrypted for security)
 username = input("Username :")
@@ -46,7 +47,7 @@ def JSONsearch(storage, haystack, needle, path=None):
 # Search through lookup table and build dictionaries for old/deprecated urls and old/deprecated itemids with what they should be updated to (new authoritative items and urls) as values
 OldUrl_Dict = {}
 OldItemID_Dict = {}
-with open(r"C:\Users\Mike\Desktop\AGO_BCGW_Lookup.csv", newline='') as csvfile:
+with open(CSVFile, newline='') as csvfile:
     csvreader = csv.reader(csvfile)
     for row in csvreader:
         OldUrl_Dict[row[1]] = [row[2],row[3],row[5]]
